@@ -27,7 +27,7 @@ function Send-Email {
     )
 
     $message = New-Object System.Net.Mail.MailMessage
-    $message.From = New-Object System.Net.Mail.MailAddress($smtpFrom, "Password-Manager - ComesSPA")
+    $message.From = New-Object System.Net.Mail.MailAddress($smtpFrom, "System Notification Manager")
     $message.To.Add($to)
     $message.Subject = $subject
     $message.Body = $body
@@ -72,16 +72,16 @@ foreach ($user in $users) {
             if ($emailAddress) {
                 $subject = "La tua password scadrà a breve"
                 $body = @"
-Ciao $($user.DisplayName),
+Hello $($user.DisplayName),
 
-La tua password scadrà il $formattedExpirationDate. Ti invitiamo a cambiarla prima di questa data per evitare problemi di accesso.
+Your password will expire on $formattedExpirationDate. Please change it before this date to avoid access issues.
 
-Per cambiare la password, premi la combinazione di tasti Ctrl + Alt + Canc, quindi seleziona "Cambia password" e segui le istruzioni.
+To change your password, press the key combination Ctrl + Alt + Del, then select "Change password" and follow the instructions.
 
-Se hai bisogno di assistenza, contatta il team di supporto IT.
+If you need assistance, contact the IT support team.
 
-Grazie,
-Dipartimento IT
+Thank you,
+IT Department
 "@
                 # Send the email
                 Send-Email -to $emailAddress -subject $subject -body $body
